@@ -1,0 +1,71 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://satzweiss.com/ecodebooks/licenses/>.
+}}
+{{!
+    @template ecode_book/manage
+
+
+    Example context (json):
+    {
+
+    }
+}}
+<h1>{{control}}</h1>
+<div class="card w-50">
+    <div class="card-body">
+        <form role="form">
+            <div class="form-group">
+                <label for="host">{{host}}</label>
+                <input class="form-control" type="text" id="host" name="host" value="{{hostvalue}}">
+            </div>
+            <div class="form-group">
+                <label for="host">{{sc}}</label>
+                <input class="form-control" type="text" id="sc" name="sc" value="{{scvalue}}">
+            </div>
+            <div class="form-group">
+                <label for="host">{{shs}}</label>
+                <input class="form-control" type="text" id="shs" name="shs" value="{{shsvalue}}">
+            </div>
+            <div id="yes" style="display: none;" class="alert alert-success">
+                <strong>{{statusyes}}</strong> {{messageyes}}
+            </div>
+            <div id="no" style="display: none;" class="alert alert-danger">
+                <strong>{{statusnoyes}}</strong> {{messageno}}
+            </div>
+            <div id="no" style="display: none;" class="alert alert-danger">
+                <strong>{{statusnoyes}}</strong> {{messageno}}
+            </div>
+            <div id="required" style="display: none;" class="alert alert-danger">
+                <strong>Bitte, </strong> alle Felder sind erforderlich!
+            </div>
+            <input type="button" class="btn btn-primary" value="{{saveCchanges}}" onclick="saveCustomerVariable()">
+        </form>
+    </div>
+</div>
+<hr>
+<h1>{{listofbooks}}</h1>
+{{#books}}
+    <div class="card w-50">
+        <div class="card-body">
+            <p><span><img src="{{{imageone}}}" alt="110ecodebook" width="25" height="25"> - </span>{{booktitle}}</p>
+            <input type="button" class="btn btn-primary" value="{{editbook}}" onclick="location.href='{{editurl}}?bookidint={{id}}'">
+            <input type="button" class="local_ecodebookmanagerid{{id}} btn btn-danger local_ecodebookmanager_delete_button" value="{{deletebook}}">
+        </div>
+    </div>
+{{/books}}
+
+<hr>
+<input type="button" class="btn btn-primary" value="{{createbook}}" onclick="location.href='{{editurl}}'">

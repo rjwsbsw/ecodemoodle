@@ -1,0 +1,9 @@
+Abnahme
+SharedSecret: EMap48+rPdg3DblxHV/e5DzMbWa=
+OrderSource: kraftwerksschule
+URL: https://barf.container.satzweiss.com/kws-demo
+
+Produktivsystem
+OrderSource: kraftwerksschule
+SharedSecret: Oxo2E0G+SCFR6ExrM2pUpBo/bgs=
+Url: https://app.barrierefreie-dokumente.saarland/kraftwerksschule

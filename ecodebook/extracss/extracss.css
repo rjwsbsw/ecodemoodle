@@ -1,0 +1,21 @@
+.tableclass {border: none;}
+
+
+.bookimage {
+  width: 70px;
+  height: auto;
+  cursor: pointer;
+}
+
+.bookoverlay {
+  color: #2e2e2e;
+  font-size: 14px;
+  font-weight:bold;
+  text-align: left;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.bookcontainer:hover {
+	opacity:0.5;
+}
+.aclass{text-decoration: none;}
