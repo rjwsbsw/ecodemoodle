@@ -1,0 +1,23 @@
+# Docker & Environment
+.env
+docker/php-custom.ini
+
+# Backups
+*.sql
+*_backup/
+moodledata_backup/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+docker/*.log

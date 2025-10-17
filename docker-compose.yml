@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # MariaDB Datenbank
+  db:
+    image: mariadb:10.6
+    container_name: ecodemoodle_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${DB_NAME:-moodle}
+      MYSQL_USER: ${DB_USER:-moodleuser}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-moodlepass}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./docker/db-init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - moodle_network
+
+  # Moodle 3.11 (custom build mit Plugins)
+  moodle:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.moodle
+    container_name: ecodemoodle_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    
+    volumes:
+      # Moodle Data (persistent)
+      - moodle_data:/var/www/moodledata
+      
+      # Optional: Custom PHP config
+      - ./docker/php-custom.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    
+    ports:
+      - "8080:80"
+    
+    networks:
+      - moodle_network
+
+  # phpMyAdmin für DB-Management
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: ecodemoodle_phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: ${DB_USER:-moodleuser}
+      PMA_PASSWORD: ${DB_PASSWORD:-moodlepass}
+      UPLOAD_LIMIT: 100M
+    ports:
+      - "8081:80"
+    networks:
+      - moodle_network
+
+  # Mailhog für E-Mail Testing
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ecodemoodle_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - moodle_network
+
+volumes:
+  db_data:
+    driver: local
+  moodle_data:
+    driver: local
+
+networks:
+  moodle_network:
+    driver: bridge
